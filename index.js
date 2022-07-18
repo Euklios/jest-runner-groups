@@ -18,9 +18,9 @@ class GroupRunner extends TestRunner {
 			if ( arg.startsWith( ARG_PREFIX ) ) {
 				const group = arg.substring( ARG_PREFIX.length );
 				if ( group.startsWith( '-' ) ) {
-					exclude.push(group.substring(1));
-				} else if (group.startsWith('!')) {
-					mustInclude.push(group.substring(1));
+					exclude.push( group.substring( 1 ) );
+				} else if ( group.startsWith( '!' ) ) {
+					mustInclude.push( group.substring( 1 ) );
 				} else {
 					include.push( group );
 				}
@@ -53,7 +53,7 @@ class GroupRunner extends TestRunner {
 				}
 			}
 
-			if (parsedGroup.some((entry) => !mustInclude.includes(entry))) {
+			if ( mustInclude.some( ( entry ) => !parsedGroup.includes( entry ) ) ) {
 				found = false;
 			}
 		}
