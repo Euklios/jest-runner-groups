@@ -11,13 +11,16 @@ class GroupRunner extends TestRunner {
 
 	static getGroups( args ) {
 		const include = [];
+		const mustInclude = [];
 		const exclude = [];
 
 		args.forEach( ( arg ) => {
 			if ( arg.startsWith( ARG_PREFIX ) ) {
 				const group = arg.substring( ARG_PREFIX.length );
 				if ( group.startsWith( '-' ) ) {
-					exclude.push( group.substring( 1 ) );
+					exclude.push(group.substring(1));
+				} else if (group.startsWith('!')) {
+					mustInclude.push(group.substring(1));
 				} else {
 					include.push( group );
 				}
@@ -27,10 +30,11 @@ class GroupRunner extends TestRunner {
 		return {
 			include,
 			exclude,
+			mustInclude,
 		};
 	}
 
-	static filterTest( { include, exclude }, test ) {
+	static filterTest( { include, exclude, mustInclude }, test ) {
 		let found = include.length === 0;
 
 		const parsed = parse( fs.readFileSync( test.path, 'utf8' ) );
@@ -47,6 +51,10 @@ class GroupRunner extends TestRunner {
 						found = true;
 					}
 				}
+			}
+
+			if (parsedGroup.some((entry) => !mustInclude.includes(entry))) {
+				found = false;
 			}
 		}
 
