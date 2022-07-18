@@ -74,7 +74,7 @@ class GroupRunner extends TestRunner {
 		} );
 
 		return super.runTests(
-			groups.include.length > 0 || groups.exclude.length > 0
+			groups.include.length > 0 || groups.exclude.length > 0 || groups.mustInclude.length > 0
 				? tests.filter( ( test ) => GroupRunner.filterTest( groups, test ) )
 				: tests,
 			watcher,
