@@ -28,11 +28,12 @@
 	},
 	"scripts": {
 		"lint": "eslint . --ext .js --ignore-pattern node_modules",
-		"format": "npm run lint --silent -- --fix"
+		"format": "npm run lint --silent -- --fix",
+		"test": "jest"
 	},
 	"peerDependencies": {
-		"jest-runner": ">= 24",
-		"jest-docblock": ">= 24"
+		"jest-docblock": ">= 24",
+		"jest-runner": ">= 24"
 	},
 	"devDependencies": {
 		"eslint": "^7.32.0",
@@ -87,5 +88,12 @@
 		"hooks": {
 			"pre-commit": "npm run lint --silent"
 		}
+	},
+	"jest": {
+		"rootDir": ".",
+		"testMatch": [
+			"<rootDir>/tests/*.js"
+		],
+		"verbose": true
 	}
 }
