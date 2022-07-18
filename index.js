@@ -56,6 +56,8 @@ class GroupRunner extends TestRunner {
 			if ( mustInclude.some( ( entry ) => !parsedGroup.includes( entry ) ) ) {
 				found = false;
 			}
+		} else if ( mustInclude.length > 0 ) {
+			found = false;
 		}
 
 		return found;
